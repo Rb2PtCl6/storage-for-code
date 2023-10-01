@@ -12,20 +12,42 @@ enum input_statuss
 	ok = 1
 };
 
+enum my_exit
+{
+	no = 0,
+	yes = 1
+};
+
+enum all_allowed_symbols
+{
+	n0 = 48,
+	n1 = 49,
+	n2 = 50,
+	n3 = 51,
+	n4 = 52,
+	n5 = 53,
+	n6 = 54,
+	n7 = 55,
+	n8 = 56,
+	n9 = 57,
+	s_minus = 45,
+	s_dot = 46
+};
+
 struct input_data
 {
 	enum input_statuss statuss;
 	double value;
 };
 
-int allowed[] = {48,49,50,51,52,53,54,55,56,57,45,46};
+enum all_allowed_symbols allowed_symbols[] = {n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,s_minus,s_dot};
 
 bool check(char this_char) {
-	for (size_t j = 0; j < sizeof(allowed); j++)
+	for (size_t j = 0; j < sizeof(allowed_symbols); j++)
 	{
 		//printf("%d\n", this_char);
 		//printf("%d\n", allowed[j]);
-		if (this_char == allowed[j])
+		if (this_char == allowed_symbols[j])
 		{
 			//printf("%s", "there");
 			return true;
@@ -70,9 +92,7 @@ struct input_data get_input(char var[2]) {
 	//printf("%s\n", raw);
 	for (size_t i = 0; i < strlen(raw); i++)
 	{
-		char this_char = raw[i];
-		char next_char = raw[i + 1];
-		if (!check(this_char)) {
+		if (!check(raw[i])) {
 			struct input_data to_return = { error, 0 };
 			return to_return;
 		}
@@ -86,8 +106,7 @@ struct input_data random_input(char var[2]) {
 	printf("%s\n", "q = 1 - да");
 	printf("%s\n\n", "q = 2 - нет");
 
-	struct input_data state = get_input("q");
-	switch ((int)state.value)
+	switch ((int)get_input("q").value)
 	{
 	case 1:
 		printf("%s %s\n", "Выбрано случайное число для",var);
@@ -161,7 +180,7 @@ void task_3(void) {
 	}
 };
 void launcher(void) {
-	int exit_action = 0;
+	enum my_exit exit_action = no;
 	printf("%s\n", "Программа запущена");
 	do {
 		printf("\n\n%s\n\n", "Выберите действие:");
@@ -177,22 +196,22 @@ void launcher(void) {
 		{
 		case 1:
 			task_1();
-			exit_action = 0;
+			exit_action = no;
 			break;
 		case 2:
 			task_2();
-			exit_action = 0;
+			exit_action = no;
 			break;
 		case 3:
 			task_3();
-			exit_action = 0;
+			exit_action = no;
 			break;
 		case 4:
-			exit_action = 1;
+			exit_action = yes;
 			break;
 		default:
 			printf("%s\n", "Ваш ввод некоректен!");
-			exit_action = 0;
+			exit_action = no;
 			break;
 		}
 	} while (exit_action != 1);
@@ -213,7 +232,7 @@ int main(void) {
 	printf("%s", eng);
 	printf("%s", ru);*/
 
-	printf("%s\n\n", "name, 4303, 1 контрольная, 8 вариант контрольной, все задания");
+	printf("%s\n\n", "Никита Громов, 4303, 1 контрольная, 8 вариант контрольной, все задания");
 
 	launcher();
 	printf("%s", "Конец кода\n");

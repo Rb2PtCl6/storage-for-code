@@ -137,7 +137,7 @@ struct input_data get_input(char var[2]) {
 	return to_return;
 };
 
-bool random_input(int number) {
+bool is_random_input(int number) {
 	printf("\n\n%s %d %s?\n", "Вывести случайное значение для",number, "задания");
 	printf("%s\n", "q = 1 - да");
 	printf("%s\n\n", "q = 2 - нет");
@@ -171,7 +171,7 @@ void task_1(void) {
 	struct input_data x = insert_random_input();
 	struct input_data y = insert_random_input();
 	struct input_data z = insert_random_input();
-	if (!random_input(1))
+	if (!is_random_input(1))
 	{
 		x = get_input("x");
 		y = get_input("y");
@@ -203,7 +203,7 @@ void task_2(void) {
 	struct input_data k = insert_random_input();
 	struct input_data m = insert_random_input();
 
-	if (!random_input(2))
+	if (!is_random_input(2))
 	{
 		k = get_input("k");
 		m = get_input("m");
